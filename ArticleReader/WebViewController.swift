@@ -8,16 +8,34 @@
 
 import UIKit
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, UIWebViewDelegate {
 
+    var WebURL : String?
+    
     @IBOutlet var LoadingIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet var WebViewer: UIWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+        WebViewer.delegate = self
+        
+        LoadingIndicator.hidesWhenStopped = true
+    
+        // Page to display when JSON doesnt have any URL
+        let NoPageHtml : String! = "<h2 align =\"center\" style=\"font-family: Helvetica\">No Page to Display</h2>"
+        
+        if WebURL != nil {
+            WebViewer.loadRequest(URLRequest(url: URL(string: WebURL!)!))
+        }else {
+            WebViewer.loadHTMLString(NoPageHtml, baseURL: nil)
+        }
+    
     }
-
+    
+// MARK: Action to main segue by pressing back button
+    
     @IBAction func BackButtonPressed(_ sender: Any) {
         
         let MainController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! ViewController
@@ -27,15 +45,18 @@ class WebViewController: UIViewController {
         view.window!.layer.add(transition, forKey: kCATransition)
         
         self.present(MainController, animated: false, completion: nil)
-        
-        
-        
-        
+   
+    }
+
+// MARK: WebView delegate functions
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        LoadingIndicator.startAnimating()
     }
     
-    
-    
-    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        LoadingIndicator.stopAnimating()
+    }
     
     
     override func didReceiveMemoryWarning() {
@@ -44,14 +65,5 @@ class WebViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
