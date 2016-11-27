@@ -9,6 +9,12 @@
 import UIKit
 
 class CellWithoutImage: UITableViewCell {
+    
+    
+    @IBOutlet var CellTitle: UILabel!
+    
+    @IBOutlet var CellAbstract: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var ArticleTableView: UITableView! // TableView control
+    
+    @IBOutlet var LoadingIndicator: UIActivityIndicatorView! // Activity indicator animation when loading data from web
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

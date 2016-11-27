@@ -10,12 +10,34 @@ import UIKit
 
 class WebViewController: UIViewController {
 
+    @IBOutlet var LoadingIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func BackButtonPressed(_ sender: Any) {
+        
+        let MainController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! ViewController
+
+        let transition = SegueAnimation(Forward: false, Duration: 0.4)
+        
+        view.window!.layer.add(transition, forKey: kCATransition)
+        
+        self.present(MainController, animated: false, completion: nil)
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

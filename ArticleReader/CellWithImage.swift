@@ -10,6 +10,13 @@ import UIKit
 
 class CellWithImage: UITableViewCell {
 
+    @IBOutlet var CellDisplayImage: UIImageView!
+    
+    @IBOutlet var CellTitle: UILabel!
+    
+    @IBOutlet var CellAbstract: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
