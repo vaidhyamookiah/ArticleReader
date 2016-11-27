@@ -23,16 +23,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        LoadingIndicator.hidesWhenStopped = true
-        FetchData() // Function to fetch JSON data and store it in ArticleObjectArray
-        
         ArticleTableView.delegate = self
         ArticleTableView.dataSource = self
         
         // Adding Pull to refresh gesture
         PullToRefresh.addTarget(self, action: #selector(RefreshTableView), for: .valueChanged)
         ArticleTableView.addSubview(PullToRefresh)
-
+    
+        
+        LoadingIndicator.hidesWhenStopped = true
+        FetchData() // Function to fetch JSON data and store it in ArticleObjectArray
+        
     }
     
 
@@ -45,7 +46,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let JsonTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil
             {
-                print ("Error: Check URL ")
+                self.alert(message: "Check your internet", title: "No network")
+                print ("Error: Check URL or network settings")
             }
             else
             {
